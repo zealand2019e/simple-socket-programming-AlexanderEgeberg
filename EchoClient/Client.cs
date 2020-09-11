@@ -19,13 +19,14 @@ namespace EchoClient
             StreamReader reader = new StreamReader(ns);
             StreamWriter writer = new StreamWriter(ns) { AutoFlush = true };
 
+            Console.WriteLine("Client connected to server");
             while (true)
             {
                 string clientMessage = Console.ReadLine();
-                writer.WriteLine(clientMessage);
-                Console.WriteLine(reader.ReadLine());
-
-            }
+                writer.WriteLine($"{clientMessage}");
+                string serverMessage = reader.ReadLine();
+                Console.WriteLine($"server: {serverMessage}");
+            }   
         }
     }
 }

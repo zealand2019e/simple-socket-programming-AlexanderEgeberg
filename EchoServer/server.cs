@@ -16,8 +16,6 @@ namespace EchoServer
 
             TcpListener serverSocket = new TcpListener(IPAddress.Loopback, port);
             serverSocket.Start();
-            Console.WriteLine("server started");
-
             TcpClient socket = serverSocket.AcceptTcpClient();
 
             using (socket)
@@ -32,13 +30,21 @@ namespace EchoServer
             StreamReader reader = new StreamReader(ns);
             StreamWriter writer = new StreamWriter(ns) { AutoFlush = true };
 
+            int wordcount = 0;
+            Console.WriteLine("server started");
             while (true)
             {
-                Console.WriteLine("write a message");
-                string serverMessage = Console.ReadLine();
-                writer.WriteLine($"server: {serverMessage}");
+
                 string userMessage = reader.ReadLine();
+                writer.WriteLine($"{userMessage}");
                 Console.WriteLine($"user: {userMessage}");
+
+                userMessage.ToString();
+                string[] wordsArrayStrings = userMessage.Split(" ");
+                wordcount = wordcount + wordsArrayStrings.Length;
+
+                Console.WriteLine($"Current word count: {wordcount}");
+
             }
             Console.WriteLine("Server disconnected...");
         }
