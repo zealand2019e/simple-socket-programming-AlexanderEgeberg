@@ -21,21 +21,24 @@ namespace EchoServer
 
             using (socket)
             {
-
-                NetworkStream ns = socket.GetStream();
-                StreamReader reader = new StreamReader(ns);
-                StreamWriter writer = new StreamWriter(ns) { AutoFlush = true };
-
-                while (true)
-                {
-                    string serverMessage = Console.ReadLine();
-                    writer.WriteLine($"server: {serverMessage}");
-                    string userMessage = reader.ReadLine();
-                    Console.WriteLine($"user: {userMessage}");
-                }
-                Console.WriteLine("Server disconnected...");
+                DoClient(socket);
             }
         }
 
+        public static void DoClient(TcpClient socket)
+        {
+            NetworkStream ns = socket.GetStream();
+            StreamReader reader = new StreamReader(ns);
+            StreamWriter writer = new StreamWriter(ns) { AutoFlush = true };
+
+            while (true)
+            {
+                string serverMessage = Console.ReadLine();
+                writer.WriteLine($"server: {serverMessage}");
+                string userMessage = reader.ReadLine();
+                Console.WriteLine($"user: {userMessage}");
+            }
+            Console.WriteLine("Server disconnected...");
+        }
     }
 }
