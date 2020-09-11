@@ -16,6 +16,7 @@ namespace EchoServer
 
             TcpListener serverSocket = new TcpListener(IPAddress.Loopback, port);
             serverSocket.Start();
+            Console.WriteLine("server started");
 
             TcpClient socket = serverSocket.AcceptTcpClient();
 
@@ -33,6 +34,7 @@ namespace EchoServer
 
             while (true)
             {
+                Console.WriteLine("write a message");
                 string serverMessage = Console.ReadLine();
                 writer.WriteLine($"server: {serverMessage}");
                 string userMessage = reader.ReadLine();
